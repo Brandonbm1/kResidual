@@ -1,0 +1,13 @@
+- Crear el formulario para los contratos ✔
+- Agregar las funcionalidades de guardar y modificar contratos y proponentes ✔
+- Crear la función Calcular (donde se va a calcular el valor de la k residual)
+  |- Esto se hará en el contexto
+  |- Hará uso de funciones de:
+    |- Hallar experiencia se calcula con la formula del excel
+    |- Hallar capacidad financiera
+    |- Hallar capacidad tecnica
+- Colocar un botón hasta lo más bajo de la pagina donde diga calcular y ejecute la funcion Calcular()
+------------------------------------------------------------------------------------------------
+- Generar el dominio con .tech
+- Subir el repositorio a github pages, (usando mi propio dominio)
+- Poner en producción el proyecto.

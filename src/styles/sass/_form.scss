@@ -1,0 +1,77 @@
+.form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    &.proponente,
+    &.contractForm,
+    &.heroForm {
+      align-items: unset;
+      justify-content: center;
+
+      &:nth-child(2) {
+        justify-self: unset;
+      }
+    }
+    &:nth-child(2) {
+      justify-self: center;
+    }
+  }
+  &__label {
+    color: #01bbbb;
+    font-weight: 500;
+    padding-left: 0.25rem;
+    &.proponente {
+      font-size: 14px;
+    }
+  }
+  &__input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #bcbcbc;
+    border-top: none;
+    border-radius: 0.5rem;
+    letter-spacing: 2px;
+    &.error {
+      outline: 2px solid #bd1717;
+    }
+    &:focus {
+      outline: 2px solid #01bbbb;
+    }
+  }
+  &__button {
+    height: 2.5rem;
+    width: 7.5rem;
+    justify-self: center;
+    background-color: #39234b;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease all;
+    box-shadow: -5px -5px 12px #fff, 5px 5px 12px rgba(0, 0, 0, 0.4);
+    &:hover {
+      background-color: #01bbbb;
+    }
+    &.proponente {
+      grid-column: 1/-1;
+    }
+  }
+  &.proponente {
+    padding: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+  &.heroForm {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+.fullRow {
+  grid-column: 1/-1;
+}

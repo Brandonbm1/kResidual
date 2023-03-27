@@ -1,0 +1,57 @@
+.proponentCard {
+  background-color: #fff;
+  min-height: 120px;
+  box-shadow: 5px 5px 12px #0007, -5px -5px 12px #fff;
+  transition: 0.3s ease all;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  &__information {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5rem 0.5rem 0;
+    margin-top: 0.5rem;
+    border-bottom: 1px solid #bcbcbc;
+    &-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &-label {
+      font-weight: 500;
+    }
+    &-field {
+      text-transform: capitalize;
+      text-align: end;
+    }
+  }
+  &__footer {
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    & .proponentCard__checker {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__checker {
+    fill: red;
+    font-size: 0.75rem;
+    &.valid {
+      fill: rgb(7, 189, 7);
+    }
+  }
+}
