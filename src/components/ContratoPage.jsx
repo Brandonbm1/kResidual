@@ -1,6 +1,10 @@
 import React from "react";
 import { useProponentContext } from "../context/ProponentsContext";
-import { calculateKResidual, calculateSCE } from "../hooks/useCalculate";
+import {
+  calculateKResidual,
+  calculateSCE,
+  scrollToElement,
+} from "../hooks/useCalculate";
 import ContratoCard from "./ContratoCard";
 
 const ContratoPage = () => {
@@ -29,7 +33,7 @@ const ContratoPage = () => {
       newInfoGeneral.kResidualGeneral = Math.round(kResidualGeneral);
       setProponentes(newProponentes);
       setInfoGeneral(newInfoGeneral);
-      console.log(newInfoGeneral);
+      scrollToElement("reporte");
     }
   };
 

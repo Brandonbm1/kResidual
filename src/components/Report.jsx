@@ -16,7 +16,7 @@ const Report = () => {
 
   if (!infoGeneral.kResidualGeneral) return;
   return (
-    <section className="report">
+    <section className="report" id="report">
       <div className="container">
         <article className="report__details">
           <aside className="report__labels">
