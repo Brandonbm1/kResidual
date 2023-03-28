@@ -12,7 +12,6 @@ const ProponenteCard = ({ proponente }) => {
   useEffect(() => {
     let validation = false;
     let validationContracts = false;
-    console.log({ proponente });
     if (proponente.haveContracts === "No") validationContracts = true;
     else if (proponente.numContracts > 0) validationContracts = true;
 

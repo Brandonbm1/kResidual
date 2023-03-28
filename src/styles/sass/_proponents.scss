@@ -1,8 +1,30 @@
 .proponent {
-  display: flex;
+  // display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: 2rem 0;
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #e5e5f7 20%,
+      #e5e5f7 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #e5e5f7 20%,
+        #e5e5f7 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(#444df74d 1px, transparent 1px) 0 -1px,
+    linear-gradient(90deg, #444df74d 2px, #e5e5f7 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
 
   &__header {
     border-bottom: 1px solid #bcbcbc;

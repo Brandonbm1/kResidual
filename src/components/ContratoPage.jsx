@@ -47,8 +47,11 @@ const ContratoPage = () => {
             proponentes.map((proponente) => (
               <>
                 <section className="contract__basicInformation">
-                  <h3 className="index" key={proponente.index}>
-                    Proponente {proponente.name}
+                  <h3
+                    className="contract__basicInformation-title"
+                    key={proponente.index}
+                  >
+                    Proponente -- {proponente.name}
                   </h3>
                 </section>
                 <section className="contract__grid">

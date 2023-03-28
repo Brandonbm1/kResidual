@@ -47,8 +47,8 @@ const ProponentePage = () => {
     // reset();
   };
   return (
-    <div className="container">
-      <section className="proponent">
+    <section className="proponent" id="proponente">
+      <div className="container">
         <header className="proponent__header">
           <h2 className="proponent__title">Informacion del proponente</h2>
           <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -122,8 +122,8 @@ const ProponentePage = () => {
             ))}
         </main>
         <footer className="proponent__footer"></footer>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

@@ -1,6 +1,8 @@
 .contract {
   min-height: 100vh;
-  background-color: #8cc9c9;
+  background-color: #8bc6ec;
+  background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+
   padding: 2rem 0;
   & > .container {
     min-height: 80vh;
@@ -12,9 +14,14 @@
     margin-bottom: 1rem;
     border-bottom: 1px solid #bcbcbc;
   }
+  &__basicInformation {
+    &-title {
+      color: #fff;
+    }
+  }
   &__title {
     text-transform: uppercase;
-    color: #39234b;
+    color: #fff;
   }
   &__main {
     display: flex;

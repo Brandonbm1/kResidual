@@ -113,3 +113,13 @@ export const calculateKResidual = (proponente, infoGeneral) => {
   // }
   return kresidual;
 };
+
+export const scrollToElement = (id) => {
+  const element = document.getElementById(id);
+  // console.log(element);
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+    inline: "nearest",
+  });
+};

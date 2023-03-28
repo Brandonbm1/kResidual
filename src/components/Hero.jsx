@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { scrollToElement } from "../hooks/useCalculate";
 import { useForm } from "react-hook-form";
-import { AiOutlineSave } from "react-icons/ai";
+import { AiOutlineSave, AiOutlineLoading3Quarters } from "react-icons/ai";
 // import { BsChevronDoubleDown } from "react-icons/bs";
 import { useProponentContext } from "../context/ProponentsContext";
 
@@ -15,19 +16,23 @@ const Hero = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     reset,
   } = useForm(initialForm);
   const { setInfoGeneral } = useProponentContext();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = (data) => {
     setInfoGeneral(data);
-    // reset();
+    if (isSubmitSuccessful) setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      scrollToElement("proponente");
+    }, [1000]);
   };
-  const isSubmitSuccessful = true;
 
   return (
-    <section className="hero">
+    <section className="hero" id="hero">
       <article className="hero__content">
         <header className="hero__header">
           <h3 className="hero__title">
@@ -180,12 +185,14 @@ const Hero = () => {
 
             <button
               className={`button form__button heroForm fullRow ${
-                isSubmitSuccessful ? "successful" : ""
+                isSubmitting ? "successful" : ""
               }`}
             >
-              <AiOutlineSave
-                className={`${isSubmitSuccessful ? "successful" : ""}`}
-              />
+              {!isSubmitting ? (
+                <AiOutlineSave />
+              ) : (
+                <AiOutlineLoading3Quarters className={` load `} />
+              )}
             </button>
           </form>
         </main>

@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { useProponentContext } from "../context/ProponentsContext";
 const Report = () => {
   const { proponentes, infoGeneral } = useProponentContext();
-
-  if (!infoGeneral.kResidualGeneral) return;
   useEffect(() => {
     let monedas = document.querySelectorAll(".monedas");
     monedas.forEach((moneda) => {
@@ -16,6 +14,7 @@ const Report = () => {
     });
   }, []);
 
+  if (!infoGeneral.kResidualGeneral) return;
   return (
     <section className="report">
       <div className="container">

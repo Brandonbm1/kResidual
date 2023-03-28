@@ -3,11 +3,36 @@
   padding: 1.5rem 0;
   display: grid;
   place-content: center;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #e5e5f7 20%,
+      #e5e5f7 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #e5e5f7 20%,
+        #e5e5f7 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(#444df74d 1px, transparent 1px) 0 -1px,
+    linear-gradient(90deg, #444df74d 2px, #e5e5f7 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+
   & > .container {
-    // align-items: center;
     display: flex;
     flex-direction: column;
     min-width: max-content;
+    padding: 2rem 3rem;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(1px);
+    border-radius: 15px;
   }
 
   &__details {
