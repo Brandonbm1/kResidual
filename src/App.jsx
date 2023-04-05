@@ -1,21 +1,46 @@
-import Hero from "./components/Hero";
-import ProponentePage from "./components/ProponentePage";
 import "./styles/css/index.css";
 import { ProponentContextProvider } from "./context/ProponentsContext";
-import Modal from "./components/Modal";
-import ContratoPage from "./components/ContratoPage";
-import Prueba from "./components/Prueba";
-import Report from "./components/Report";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoutes from "./router/ProtectedRoutes";
+import AuthRoutes from "./router/AuthRoutes";
+import { useEffect } from "react";
 const App = () => {
   return (
-    <ProponentContextProvider>
-      <Hero />
-      <ProponentePage />
-      <ContratoPage />
-      <Modal />
-      <Report />
-      {/* <Prueba /> */}
-    </ProponentContextProvider>
+    <AuthContextProvider>
+      <ProponentContextProvider>
+        <Routes>
+          <Route
+            index
+            path="/kResidual"
+            element={
+              <ProtectedRoutes>
+                <Home />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/kResidual/login"
+            element={
+              <AuthRoutes>
+                <Login />
+              </AuthRoutes>
+            }
+          />
+          <Route
+            path="/kResidual/register"
+            element={
+              <AuthRoutes>
+                <Register />
+              </AuthRoutes>
+            }
+          />
+        </Routes>
+      </ProponentContextProvider>
+    </AuthContextProvider>
   );
 };
 

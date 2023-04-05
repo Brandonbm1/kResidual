@@ -55,17 +55,17 @@ const ProponenteFormModal = () => {
     const index = object.index;
 
     data.index = index;
+    data.bestIncome = Number(data.bestIncome);
     if (data.haveContracts === "") data.haveContracts = "No";
     if (data.overThanAYear === "") data.overThanAYear = "No";
-    if (data.haveContracts === "No" || data.haveContracts === "")
-      data.numContracts = 0;
     if (
       data.overThanAYear === "No" ||
       data.bestIncome < infoGeneral?.dolarPrice * 125000
     )
       data.bestIncome = infoGeneral?.dolarPrice * 125000;
     const contratos = [];
-    for (let i = 0; i < data.numContracts; i++) {
+    /**
+     for (let i = 0; i < data.numContracts; i++) {
       const newContract = {
         index: getRandomNumber(150, 100000),
         contractPrice: "",
@@ -78,11 +78,19 @@ const ProponenteFormModal = () => {
       };
       contratos.push(newContract);
     }
+     */
 
+    data.numContracts = 0;
     data.contracts = contratos;
+    data.sce = 0;
+    data.kResidual = 0;
+    data.financialCapability = Number(data.financialCapability);
+    data.tecnicCapability = Number(data.tecnicCapability);
+    data.experience = Number(data.experience);
     data.experienceValue = calculateExperience(data, infoGeneral);
     data.financialCapabilityValue = calculateFinancialCapability(data);
     data.tecnicCapabilityValue = calculateTecniqueCapability(data);
+
     // data.sce = calculateSCE(data, infoGeneral);
     // data.kresidual = calculateKResidual(data);
 
@@ -98,7 +106,6 @@ const ProponenteFormModal = () => {
 
       return listProponents;
     });
-    console.log(data);
     handleOpenModal(false);
   };
 
@@ -152,34 +159,7 @@ const ProponenteFormModal = () => {
           })}
         />
       </div>
-      {/** financialCapability */}
-      <div className="form__group proponente">
-        <label
-          htmlFor="financialCapability"
-          className={`form__label proponente ${
-            errors.financialCapability ? "error" : ""
-          }`}
-        >
-          Capacidad financiera
-        </label>
-        <input
-          type="text"
-          id="financialCapability"
-          className={`form__input proponente ${
-            errors.financialCapability ? "error" : ""
-          }`}
-          {...register("financialCapability", {
-            required: {
-              value: true,
-              message: "Field required",
-            },
-            pattern: {
-              value: /^\d+(\.\d+)?$/,
-              message: "Only decimals",
-            },
-          })}
-        />
-      </div>
+
       {/* overThanAYear */}
       <div className="form__group proponente">
         <label
@@ -207,7 +187,7 @@ const ProponenteFormModal = () => {
         />
       </div>
       {/** bestIncome */}
-      <div className="form__group proponente fullRow">
+      <div className="form__group proponente ">
         <label
           htmlFor="bestIncome"
           className={`form__label proponente ${
@@ -236,7 +216,7 @@ const ProponenteFormModal = () => {
       </div>
 
       {/** experience */}
-      <div className="form__group proponente fullRow">
+      <div className="form__group proponente ">
         <label
           htmlFor="experience"
           className={`form__label proponente ${
@@ -290,49 +270,23 @@ const ProponenteFormModal = () => {
           })}
         />
       </div>
-      {/** haveContracts */}
+      {/** financialCapability */}
       <div className="form__group proponente">
         <label
-          htmlFor="haveContracts"
+          htmlFor="financialCapability"
           className={`form__label proponente ${
-            errors.haveContracts ? "error" : ""
+            errors.financialCapability ? "error" : ""
           }`}
         >
-          ¿Tiene contratos en curso?
-        </label>
-        <Controller
-          name="haveContracts"
-          control={control}
-          defaultValue="No"
-          render={({ field }) => (
-            <select
-              {...field}
-              id="haveContracts"
-              className={`form__input ${errors.haveContracts ? "error" : ""}`}
-            >
-              <option value="No">No</option>
-              <option value="Si">Si</option>
-            </select>
-          )}
-        />
-      </div>
-      {/** numContracts */}
-      <div className="form__group proponente">
-        <label
-          htmlFor="numContracts"
-          className={`form__label proponente ${
-            errors.numContracts ? "error" : ""
-          }`}
-        >
-          # de Contratos vigentes
+          Capacidad financiera
         </label>
         <input
           type="text"
-          id="numContracts"
+          id="financialCapability"
           className={`form__input proponente ${
-            errors.numContracts ? "error" : ""
+            errors.financialCapability ? "error" : ""
           }`}
-          {...register("numContracts", {
+          {...register("financialCapability", {
             required: {
               value: true,
               message: "Field required",

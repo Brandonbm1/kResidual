@@ -11,28 +11,31 @@ const initialForm = {
 const ProponentePage = () => {
   const [numProponentes, setNumProponentes] = useState(null);
   const { proponentes, setProponentes } = useProponentContext();
-  const [isPlural, setIsPlural] = useState(false);
-  const [proponentesToRender, setproponentesToRender] = useState(null);
+  const [proponentesToRender, setProponentesToRender] = useState(null);
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-    reset,
   } = useForm(initialForm);
 
   useEffect(() => {
-    setproponentesToRender(proponentes);
+    setProponentesToRender(proponentes);
   }, [proponentes]);
 
   const onSubmit = ({ isPlural, quantityProponent, nameProponent }) => {
     let quantProps;
     let name = "";
     let participation;
+    const contracts = [];
     const newProponents = [];
 
-    if (isPlural == "Si") quantProps = quantityProponent;
-    else {
+    if (isPlural == "Si") {
+      if (!quantityProponent) {
+        quantProps = 1;
+        participation = 100;
+      } else quantProps = quantityProponent;
+    } else {
       quantProps = 1;
       participation = 100;
     }
@@ -40,11 +43,10 @@ const ProponentePage = () => {
     for (let i = 0; i < quantProps; i++) {
       if (i === 0) name = nameProponent;
       else name = "";
-      newProponents.push({ index: i + 1, name, participation });
+      newProponents.push({ index: i + 1, name, participation, contracts });
     }
     setNumProponentes(quantityProponent);
     setProponentes(newProponents);
-    // reset();
   };
   return (
     <section className="proponent" id="proponente">
@@ -101,10 +103,6 @@ const ProponentePage = () => {
                   errors.quantityProponent ? "error" : ""
                 }`}
                 {...register("quantityProponent", {
-                  required: {
-                    value: true,
-                    message: "Quantity is a required field",
-                  },
                   pattern: {
                     value: /^\d+$/,
                     message: "Just numbers in this field",

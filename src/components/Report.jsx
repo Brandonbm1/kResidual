@@ -14,7 +14,7 @@ const Report = () => {
     });
   }, []);
 
-  if (!infoGeneral.kResidualGeneral) return;
+  if (!infoGeneral.isValid) return;
   return (
     <section className="report" id="report">
       <div className="container">

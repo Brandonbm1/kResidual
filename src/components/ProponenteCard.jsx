@@ -87,9 +87,9 @@ const ProponenteCard = ({ proponente }) => {
           <p className="proponentCard__information-label">
             Cantidad de contratos:{" "}
           </p>
-          {proponente.haveContracts && (
+          {proponente.contracts && (
             <span className="proponentCard__information-field">
-              {Number(proponente.numContracts)}
+              {proponente.contracts.length}
             </span>
           )}
           {validContracts ? (

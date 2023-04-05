@@ -26,10 +26,10 @@ export const calculateTecniqueCapability = (proponente) => {
   let tecnicCapability = proponente.tecnicCapability;
   let calculatedTecnicCapability;
   switch (true) {
-    case tecnicCapability >= 0 && tecnicCapability <= 3:
+    case tecnicCapability >= 0 && tecnicCapability <= 6:
       calculatedTecnicCapability = 20;
       break;
-    case tecnicCapability > 6 && tecnicCapability <= 9:
+    case tecnicCapability > 6 && tecnicCapability <= 10:
       calculatedTecnicCapability = 30;
       break;
     default:
@@ -65,30 +65,35 @@ export const calculateFinancialCapability = (proponente) => {
 export const calculateSCE = (proponente, infoGeneral) => {
   const presentationDate = new Date(infoGeneral.presentationDate);
   let sce = 0;
+  try {
+    proponente.contracts?.map((contrato) => {
+      const startDate = new Date(contrato.startDate);
+      const suspentionDate = new Date(contrato.suspentionDate);
+      console.log(contrato.startDate);
+      let executedDays;
 
-  proponente.contracts?.map((contrato) => {
-    const startDate = new Date(contrato.startDate);
-    const suspentionDate = new Date(contrato.suspentionDate);
-    let executedDays;
+      if (contrato.isSuspended === "No" || !contrato.suspentionDate) {
+        executedDays = presentationDate.getTime() - startDate.getTime();
+      } else {
+        executedDays = suspentionDate.getTime() - startDate.getTime();
+      }
+      // console.log(contrato);
+      executedDays = executedDays / (1000 * 3600 * 24);
 
-    if (contrato.isSuspended === "No") {
-      executedDays = presentationDate.getTime() - startDate.getTime();
-    } else {
-      executedDays = suspentionDate.getTime() - startDate.getTime();
-    }
-    executedDays = executedDays / (1000 * 3600 * 24);
+      const executionDaysLeft = contrato.term * 30 - executedDays;
+      const dailyBalanceExecution =
+        Number(contrato.contractPrice) / (Number(contrato.term) * 30);
 
-    const executionDaysLeft = contrato.term * 30 - executedDays;
+      sce +=
+        (dailyBalanceExecution * executionDaysLeft * contrato.participation) /
+        100;
+    });
 
-    const dailyBalanceExecution =
-      Number(contrato.contractPrice) / (Number(contrato.term) * 30);
-
-    sce +=
-      (dailyBalanceExecution * executionDaysLeft * contrato.participation) /
-      100;
-  });
-
-  return Math.round(sce);
+    return Math.round(sce);
+  } catch (error) {
+    console.log(error.message);
+    throw new Error("Error en el sv");
+  }
 };
 
 export const calculateKResidual = (proponente, infoGeneral) => {
@@ -106,11 +111,11 @@ export const calculateKResidual = (proponente, infoGeneral) => {
         100) -
     sce;
 
-  // if (kresidual > infoGeneral.budget * infoGeneral.advance) {
-  //   infoGeneral.acepted = true;
-  // } else {
-  //   infoGeneral.acepted = false;
-  // }
+  if (kresidual > infoGeneral.budget * infoGeneral.advance) {
+    infoGeneral.acepted = true;
+  } else {
+    infoGeneral.acepted = false;
+  }
   return kresidual;
 };
 

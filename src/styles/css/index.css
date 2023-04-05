@@ -7,6 +7,7 @@
 
 body {
   background-color: rgb(233, 233, 232);
+  scroll-behavior: smooth;
 }
 
 .container {
@@ -19,7 +20,6 @@ body {
   position: relative;
   background: rgb(12, 41, 119);
   background: linear-gradient(45deg, rgb(12, 41, 119) 6%, rgb(15, 25, 154) 34%, rgb(18, 186, 221) 81%, rgb(0, 212, 255) 97%);
-  border: 2px solid rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -313,6 +313,9 @@ body {
 .form__group:nth-child(2) {
   justify-self: center;
 }
+.form__group.registerForm {
+  align-items: start;
+}
 .form__label {
   color: #01bbbb;
   font-weight: 500;
@@ -320,6 +323,18 @@ body {
 }
 .form__label.proponente {
   font-size: 14px;
+}
+.form__label.registerForm {
+  text-decoration: none;
+  align-self: start;
+}
+.form__label.reset {
+  min-width: 400px;
+  font-size: 0.8rem;
+  color: #39234b;
+}
+.form__label.reset:hover {
+  text-decoration: underline;
 }
 .form__input {
   padding: 0.5rem 1rem;
@@ -333,6 +348,13 @@ body {
 }
 .form__input:focus {
   outline: 2px solid #01bbbb;
+}
+.form__input.textArea {
+  resize: none;
+  min-height: 6rem;
+}
+.form__input.registerForm {
+  min-width: 400px;
 }
 .form__button {
   height: 2.5rem;
@@ -353,12 +375,19 @@ body {
 }
 .form.proponente {
   padding: 0.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   max-height: 70vh;
   overflow-y: scroll;
 }
 .form.heroForm {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.form.registerForm {
+  padding: 1.5rem 0;
+  border-radius: 1rem;
+  background-color: #fff;
+  border: 2px solid rgba(34, 34, 34, 0.1333333333);
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1333333333), -5px -5px 12px rgba(68, 68, 68, 0.1333333333);
 }
 
 .fullRow {
@@ -381,7 +410,46 @@ body {
   margin-bottom: 1rem;
   border-bottom: 1px solid #bcbcbc;
 }
+.contract__basicInformation {
+  display: flex;
+  margin: 0.5rem 0;
+  padding: 0.2rem 0;
+  align-items: center;
+  justify-content: space-between;
+}
 .contract__basicInformation-title {
+  color: #39234b;
+}
+.contract__basicInformation-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.contract__basicInformation-button {
+  color: black;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top: unset;
+  cursor: pointer;
+  background-color: #bcbcbc;
+}
+.contract__basicInformation-button.addOneContract {
+  font-weight: 800;
+  transition: 0.3s ease all;
+  display: none;
+}
+.contract__basicInformation-button.addOneContract:hover {
+  background: rgb(29, 162, 125);
+  background: linear-gradient(49deg, rgb(29, 162, 125) 0%, rgb(17, 122, 172) 55%, rgb(60, 41, 154) 100%);
+  color: #fff;
+}
+.contract__basicInformation-button.addMultipleContracts {
+  transition: 0.3s ease all;
+}
+.contract__basicInformation-button.addMultipleContracts:hover {
+  background: rgb(60, 41, 154);
+  background: linear-gradient(45deg, rgb(60, 41, 154) 0%, rgb(17, 122, 172) 55%, rgb(29, 162, 125) 100%);
   color: #fff;
 }
 .contract__title {
@@ -392,6 +460,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+.contract__details {
+  cursor: pointer;
+  background-color: #e5edff;
+  border: 3px solid #7075da;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  padding: 0rem 0.75rem;
+  max-height: 5rem;
+  margin-top: -1px;
+  transition: max-height 0.6s ease-in-out, box-shadow 0.3s ease;
+}
+.contract__details[open] {
+  max-height: 100vh;
+}
+.contract__details:hover {
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
 }
 .contract__grid {
   display: grid;
@@ -418,6 +506,18 @@ body {
   outline: 2px solid #39234b;
   background-color: #e9e9e9;
   color: #39234b;
+}
+.contract__table {
+  margin-bottom: 0.7rem;
+  padding: 0;
+  border: 1px solid rgba(140, 171, 179, 0.603);
+}
+.contract__table .contract__table-data {
+  padding: 0 0.4rem;
+  font-size: 1rem;
+  border: 1px solid rgba(140, 171, 179, 0.603);
+  text-align: center;
+  cursor: text;
 }
 
 .contractCard {
@@ -532,6 +632,94 @@ body {
 .report__results-value.valid {
   background-color: rgb(111, 206, 111);
   color: rgb(0, 95, 0);
+}
+
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(rgba(68, 77, 247, 0.3019607843) 1px, transparent 1px) 0 -1px, linear-gradient(90deg, rgba(68, 77, 247, 0.3019607843) 2px, #e5e5f7 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+}
+
+.form.registerForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 450px;
+  backdrop-filter: blur(1px);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2);
+}
+
+.registerForm__error {
+  background-color: rgb(255, 147, 147);
+  min-width: 450px;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgb(141, 30, 30);
+  text-align: center;
+}
+
+.nav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+  bottom: 5rem;
+  right: 3rem;
+  min-width: 4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(1px);
+  padding: 1rem 0.25rem;
+  min-height: 150px;
+  border-radius: 2rem;
+  transition: 0.6s ease min-width;
+}
+.nav:hover {
+  min-width: 100px;
+}
+.nav:hover .nav__description {
+  display: block;
+  opacity: 1;
+}
+.nav__group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+.nav__button {
+  text-decoration: none;
+  min-width: 100%;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  border-radius: 1rem;
+  background-color: #270b68;
+  background-color: none;
+  font-size: 1.3rem;
+  padding: 0.25rem 0.5rem;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.nav__button:hover {
+  background-color: #01bbbb;
+}
+.nav__description {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0;
+  transition: 0.3s ease opacity;
+  display: none;
 }
 
 /*# sourceMappingURL=index.css.map */

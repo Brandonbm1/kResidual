@@ -11,3 +11,8 @@
 - Generar el dominio con .tech
 - Subir el repositorio a github pages, (usando mi propio dominio)
 - Poner en producción el proyecto.
+
+
+
+-----------------------------------------------------------------------------------------------
+- Revisar la funcion SCE cuando haya terminado las vistas

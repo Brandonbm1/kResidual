@@ -23,6 +23,11 @@ const Hero = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = (data) => {
+    data.advance = Number(data.advance);
+    data.budget = Number(data.budget);
+    data.dolarPrice = Number(data.dolarPrice);
+    data.estimatedTerm = Number(data.estimatedTerm);
+    data.isValid = false;
     setInfoGeneral(data);
     if (isSubmitSuccessful) setIsSubmitting(true);
     setTimeout(() => {

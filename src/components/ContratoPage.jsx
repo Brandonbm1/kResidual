@@ -1,44 +1,81 @@
-import React from "react";
 import { useProponentContext } from "../context/ProponentsContext";
-import {
-  calculateKResidual,
-  calculateSCE,
-  scrollToElement,
-} from "../hooks/useCalculate";
-import ContratoCard from "./ContratoCard";
+import { calculateKResidual, calculateSCE } from "../hooks/useCalculate";
+import ContratoFormModal from "./ContratoFormModal";
+import ContratoTable from "./ContratoTable";
+import { useState } from "react";
+import ErrorModal from "./ErrorModal";
+import { useEffect } from "react";
 
 const ContratoPage = () => {
-  const { proponentes, setProponentes, infoGeneral, setInfoGeneral } =
-    useProponentContext();
+  const modalComponents = <ContratoFormModal />;
+  const [error, setError] = useState(null);
+  const errorModalComponents = <ErrorModal text={error} />;
+  const {
+    proponentes,
+    setProponentes,
+    infoGeneral,
+    setInfoGeneral,
+    handleOpenModal,
+    setModalComponents,
+  } = useProponentContext();
+
+  useEffect(() => {
+    if (error) {
+      handleOpenModal(true);
+      setModalComponents({
+        components: errorModalComponents,
+      });
+    }
+  }, [error]);
 
   const obtainKresidual = () => {
-    if (infoGeneral.budget) {
-      let kResidualGeneral = 0;
-      let isAcepted = false;
-      const newProponentes = [...proponentes];
-      const newInfoGeneral = { ...infoGeneral };
-      newProponentes.map((proponente) => {
-        const sce = calculateSCE(proponente, infoGeneral);
-        proponente.sce = sce;
-        proponente.kResidual = calculateKResidual(proponente, infoGeneral);
-        kResidualGeneral += proponente.kResidual;
-      });
-      if (
-        kResidualGeneral >
-        Number(newInfoGeneral.budget) -
-          (Number(newInfoGeneral.budget) * Number(newInfoGeneral.advance)) / 100
-      )
-        isAcepted = true;
-      newInfoGeneral.isAcepted = isAcepted;
-      newInfoGeneral.kResidualGeneral = Math.round(kResidualGeneral);
-      setProponentes(newProponentes);
-      setInfoGeneral(newInfoGeneral);
-      scrollToElement("reporte");
+    try {
+      if (infoGeneral.budget) {
+        let kResidualGeneral = 0;
+        let isAcepted = false;
+        const newProponentes = [...proponentes];
+        const newInfoGeneral = { ...infoGeneral };
+
+        newProponentes.map((proponente) => {
+          const sce = calculateSCE(proponente, infoGeneral);
+          proponente.sce = sce;
+
+          proponente.kResidual = calculateKResidual(proponente, infoGeneral);
+          kResidualGeneral += proponente.kResidual;
+        });
+
+        if (
+          kResidualGeneral >
+          Number(newInfoGeneral.budget) -
+            (Number(newInfoGeneral.budget) * Number(newInfoGeneral.advance)) /
+              100
+        )
+          isAcepted = true;
+        newInfoGeneral.isAcepted = isAcepted;
+        newInfoGeneral.isValid = true;
+        newInfoGeneral.kResidualGeneral = Math.round(kResidualGeneral);
+
+        setProponentes(newProponentes);
+        setInfoGeneral(newInfoGeneral);
+      } else {
+        throw new Error("Ingrese la información general");
+      }
+    } catch (error) {
+      setError(error.message);
     }
   };
 
+  const handleModal = (mode, object) => {
+    handleOpenModal(true);
+    setModalComponents({
+      components: modalComponents,
+      mode,
+      object,
+    });
+  };
+
   return (
-    <section className="contract">
+    <section className="contract" id="contract">
       <div className="container">
         <header className="contract__header">
           <h2 className="contract__title">
@@ -48,22 +85,43 @@ const ContratoPage = () => {
         <br />
         <main className="contract__main">
           {proponentes &&
-            proponentes.map((proponente) => (
-              <>
-                <section className="contract__basicInformation">
+            proponentes.map((proponente, index) => (
+              // <div className="contract__card">
+              <details key={index} className="contract__details">
+                <summary className="contract__basicInformation">
                   <h3
                     className="contract__basicInformation-title"
                     key={proponente.index}
                   >
                     Proponente -- {proponente.name}
                   </h3>
-                </section>
+                  <article className="contract__basicInformation-buttons">
+                    <button
+                      className="contract__basicInformation-button button addOneContract"
+                      onClick={() => handleModal("oneContract", proponente)}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="contract__basicInformation-button button addMultipleContracts"
+                      onClick={() =>
+                        handleModal("multipleContract", proponente)
+                      }
+                    >
+                      Agregar
+                    </button>
+                  </article>
+                </summary>
                 <section className="contract__grid">
-                  {proponente?.contracts?.map((contract, index) => (
-                    <ContratoCard key={index} contract={contract} />
-                  ))}
+                  {proponente?.contracts && (
+                    <ContratoTable
+                      key={index}
+                      contracts={proponente.contracts}
+                    />
+                  )}
                 </section>
-              </>
+              </details>
+              // </div>
             ))}
         </main>
         <footer className="contract__footer">

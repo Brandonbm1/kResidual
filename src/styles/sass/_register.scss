@@ -1,0 +1,45 @@
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #e5e5f7 20%,
+      #e5e5f7 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #e5e5f7 20%,
+        #e5e5f7 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(#444df74d 1px, transparent 1px) 0 -1px,
+    linear-gradient(90deg, #444df74d 2px, #e5e5f7 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+}
+.form.registerForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 450px;
+  backdrop-filter: blur(1px);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 5px 5px 12px 5px rgba(0, 0, 0, 0.2);
+}
+.registerForm__error {
+  background-color: rgb(255, 147, 147);
+  min-width: 450px;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgb(141, 30, 30);
+  text-align: center;
+}

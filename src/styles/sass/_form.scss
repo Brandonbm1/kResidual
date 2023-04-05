@@ -10,6 +10,7 @@
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
+
     &.proponente,
     &.contractForm,
     &.heroForm {
@@ -23,6 +24,9 @@
     &:nth-child(2) {
       justify-self: center;
     }
+    &.registerForm {
+      align-items: start;
+    }
   }
   &__label {
     color: #01bbbb;
@@ -30,6 +34,18 @@
     padding-left: 0.25rem;
     &.proponente {
       font-size: 14px;
+    }
+    &.registerForm {
+      text-decoration: none;
+      align-self: start;
+    }
+    &.reset {
+      min-width: 400px;
+      font-size: 0.8rem;
+      color: #39234b;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   &__input {
@@ -43,6 +59,13 @@
     }
     &:focus {
       outline: 2px solid #01bbbb;
+    }
+    &.textArea {
+      resize: none;
+      min-height: 6rem;
+    }
+    &.registerForm {
+      min-width: 400px;
     }
   }
   &__button {
@@ -62,14 +85,22 @@
       grid-column: 1/-1;
     }
   }
+
   &.proponente {
     padding: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     max-height: 70vh;
     overflow-y: scroll;
   }
   &.heroForm {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  &.registerForm {
+    padding: 1.5rem 0;
+    border-radius: 1rem;
+    background-color: #fff;
+    border: 2px solid #2222;
+    box-shadow: 5px 5px 12px #0002, -5px -5px 12px #4442;
   }
 }
 .fullRow {
