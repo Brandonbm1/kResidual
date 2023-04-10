@@ -81,6 +81,15 @@ const ContratoPage = () => {
           <h2 className="contract__title">
             Información de los contratos en curso
           </h2>
+          <a
+            href="../../archivo.xlsx"
+            target="_blank"
+            // rel="noopener noreferrer"
+            download="archivo.xlsx"
+            className="contract__header-button button"
+          >
+            Descarga excel base
+          </a>
         </header>
         <br />
         <main className="contract__main">

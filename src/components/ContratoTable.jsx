@@ -24,17 +24,19 @@ const ContratoTable = ({ contracts }) => {
             return (
               <tr key={i} className="contract__table-row">
                 <td className="contract__table-data">
-                  {contract.contractPrice}
+                  {contract.contractPriceFormat}
                 </td>
-                <td className="contract__table-data">{contract.startDate}</td>
+                <td className="contract__table-data">
+                  {contract.startDateFormat}
+                </td>
                 <td className="contract__table-data">{contract.term}</td>
                 <td className="contract__table-data">{contract.isPlural}</td>
                 <td className="contract__table-data">
-                  {contract.participation}
+                  {contract.participationFormat}
                 </td>
                 <td className="contract__table-data">{contract.isSuspended}</td>
                 <td className="contract__table-data">
-                  {contract.suspentionDate}
+                  {contract.suspentionDateFormat}
                 </td>
               </tr>
             );

@@ -69,7 +69,6 @@ export const calculateSCE = (proponente, infoGeneral) => {
     proponente.contracts?.map((contrato) => {
       const startDate = new Date(contrato.startDate);
       const suspentionDate = new Date(contrato.suspentionDate);
-      console.log(contrato.startDate);
       let executedDays;
 
       if (contrato.isSuspended === "No" || !contrato.suspentionDate) {
@@ -77,7 +76,6 @@ export const calculateSCE = (proponente, infoGeneral) => {
       } else {
         executedDays = suspentionDate.getTime() - startDate.getTime();
       }
-      // console.log(contrato);
       executedDays = executedDays / (1000 * 3600 * 24);
 
       const executionDaysLeft = contrato.term * 30 - executedDays;
@@ -91,7 +89,6 @@ export const calculateSCE = (proponente, infoGeneral) => {
 
     return Math.round(sce);
   } catch (error) {
-    console.log(error.message);
     throw new Error("Error en el sv");
   }
 };
@@ -121,7 +118,6 @@ export const calculateKResidual = (proponente, infoGeneral) => {
 
 export const scrollToElement = (id) => {
   const element = document.getElementById(id);
-  // console.log(element);
   element.scrollIntoView({
     behavior: "smooth",
     block: "center",

@@ -285,20 +285,36 @@ const ContratoFormModal = () => {
           isSuspended,
           suspentionDate,
         ] = row;
+
+        const newContractPrice = contractPrice
+          .split(" ")
+          .join("")
+          .split(".")
+          .join("")
+          .slice(1, -1);
+        const newParticipation = participation.substring(
+          0,
+          participation.length - 1
+        );
         const newStartDate = formatDate(startDate);
         const newSuspentionDate = formatDate(suspentionDate);
         const newContract = {
-          contractPrice: Number(contractPrice),
+          contractPrice: Number(newContractPrice),
+          contractPriceFormat: contractPrice,
           startDate: newStartDate,
+          startDateFormat: startDate,
           term: Number(term),
           isPlural,
-          participation: Number(participation),
+          participation: Number(newParticipation),
+          participationFormat: participation,
           isSuspended,
           suspentionDate: newSuspentionDate,
+          suspentionDateFormat: suspentionDate,
         };
         contratos.push(newContract);
       });
     }
+
     newProponentes[index].contracts = contratos;
     reset(defaultForm);
     setProponentes(newProponentes);
