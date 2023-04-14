@@ -12,6 +12,7 @@ const ContratoFormModal = () => {
     setProponentes,
     proponentes,
     infoGeneral,
+    setError,
   } = useProponentContext();
   const {
     register,
@@ -291,7 +292,7 @@ const ContratoFormModal = () => {
           .join("")
           .split(".")
           .join("")
-          .slice(1, -1);
+          .slice(1);
         const newParticipation = participation.substring(
           0,
           participation.length - 1
@@ -311,6 +312,7 @@ const ContratoFormModal = () => {
           suspentionDate: newSuspentionDate,
           suspentionDateFormat: suspentionDate,
         };
+
         contratos.push(newContract);
       });
     }

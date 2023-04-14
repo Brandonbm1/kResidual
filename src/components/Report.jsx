@@ -24,6 +24,8 @@ const Report = () => {
             <p className="report__labels-label">Capacidad Organizacional:</p>
             <p className="report__labels-label">Capacidad Tecnica:</p>
             <p className="report__labels-label">Capacidad Financiera:</p>
+            <p className="report__labels-label">Experiencia:</p>
+
             <p className="report__labels-label">Saldo Contrato en Ejecución:</p>
             <p className="report__labels-label">Calculo:</p>
           </aside>
@@ -39,6 +41,9 @@ const Report = () => {
                 </p>
                 <p className="report__labels-label">
                   {proponente.financialCapabilityValue}
+                </p>
+                <p className="report__labels-label">
+                  {proponente.experienceValue}
                 </p>
                 <p className="report__labels-label moneda">
                   $ {proponente.sce}

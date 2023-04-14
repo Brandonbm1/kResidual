@@ -6,13 +6,13 @@ export const calculateExperience = (proponente, infoGeneral) => {
     (infoGeneral.budget * (proponente.participation / 100));
 
   switch (true) {
-    case experience >= 0 && experience <= 3:
+    case experience >= 0 && experience < 3:
       calculatedExperience = 60;
       break;
-    case experience > 3 && experience <= 6:
+    case experience >= 3 && experience < 6:
       calculatedExperience = 80;
       break;
-    case experience > 6 && experience <= 10:
+    case experience >= 6 && experience < 10:
       calculatedExperience = 100;
       break;
     default:
@@ -26,10 +26,10 @@ export const calculateTecniqueCapability = (proponente) => {
   let tecnicCapability = proponente.tecnicCapability;
   let calculatedTecnicCapability;
   switch (true) {
-    case tecnicCapability >= 0 && tecnicCapability <= 6:
+    case tecnicCapability >= 0 && tecnicCapability < 6:
       calculatedTecnicCapability = 20;
       break;
-    case tecnicCapability > 6 && tecnicCapability <= 10:
+    case tecnicCapability >= 6 && tecnicCapability <= 10:
       calculatedTecnicCapability = 30;
       break;
     default:
@@ -43,16 +43,16 @@ export const calculateFinancialCapability = (proponente) => {
   let financialCapability = proponente.financialCapability;
   let calculatedFinancialCapability;
   switch (true) {
-    case financialCapability >= 0 && financialCapability <= 0.5:
+    case financialCapability >= 0 && financialCapability < 0.5:
       calculatedFinancialCapability = 20;
       break;
-    case financialCapability > 0.5 && financialCapability <= 0.75:
+    case financialCapability >= 0.5 && financialCapability < 0.75:
       calculatedFinancialCapability = 25;
       break;
-    case financialCapability > 0.75 && financialCapability <= 1:
+    case financialCapability >= 0.75 && financialCapability < 1:
       calculatedFinancialCapability = 30;
       break;
-    case financialCapability > 1 && financialCapability <= 1.5:
+    case financialCapability >= 1 && financialCapability < 1.5:
       calculatedFinancialCapability = 35;
       break;
     default:
@@ -78,9 +78,18 @@ export const calculateSCE = (proponente, infoGeneral) => {
       }
       executedDays = executedDays / (1000 * 3600 * 24);
 
-      const executionDaysLeft = contrato.term * 30 - executedDays;
-      const dailyBalanceExecution =
+      let executionDaysLeft = contrato.term * 30 - executedDays;
+      if (executionDaysLeft > 360) executionDaysLeft = 360;
+      const dailyBalanceExecution = //Math.round(
         Number(contrato.contractPrice) / (Number(contrato.term) * 30);
+      //);
+
+      console.log({
+        precio: contrato.contractPrice,
+        plazo: contrato.term,
+        diasFaltantes: executionDaysLeft,
+        balanceDiario: dailyBalanceExecution,
+      });
 
       sce +=
         (dailyBalanceExecution * executionDaysLeft * contrato.participation) /
@@ -94,6 +103,7 @@ export const calculateSCE = (proponente, infoGeneral) => {
 };
 
 export const calculateKResidual = (proponente, infoGeneral) => {
+  console.log(proponente);
   const {
     bestIncome,
     experienceValue,
@@ -113,7 +123,7 @@ export const calculateKResidual = (proponente, infoGeneral) => {
   } else {
     infoGeneral.acepted = false;
   }
-  return kresidual;
+  return Math.round(kresidual);
 };
 
 export const scrollToElement = (id) => {

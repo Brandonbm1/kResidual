@@ -8,8 +8,7 @@ import { useEffect } from "react";
 
 const ContratoPage = () => {
   const modalComponents = <ContratoFormModal />;
-  const [error, setError] = useState(null);
-  const errorModalComponents = <ErrorModal text={error} />;
+
   const {
     proponentes,
     setProponentes,
@@ -17,7 +16,12 @@ const ContratoPage = () => {
     setInfoGeneral,
     handleOpenModal,
     setModalComponents,
+    validatePercentageParticipation,
+    error,
+    setError,
   } = useProponentContext();
+
+  const errorModalComponents = <ErrorModal text={error} />;
 
   useEffect(() => {
     if (error) {
@@ -27,39 +31,37 @@ const ContratoPage = () => {
       });
     }
   }, [error]);
-
   const obtainKresidual = () => {
     try {
-      if (infoGeneral.budget) {
-        let kResidualGeneral = 0;
-        let isAcepted = false;
-        const newProponentes = [...proponentes];
-        const newInfoGeneral = { ...infoGeneral };
-
-        newProponentes.map((proponente) => {
-          const sce = calculateSCE(proponente, infoGeneral);
-          proponente.sce = sce;
-
-          proponente.kResidual = calculateKResidual(proponente, infoGeneral);
-          kResidualGeneral += proponente.kResidual;
-        });
-
-        if (
-          kResidualGeneral >
-          Number(newInfoGeneral.budget) -
-            (Number(newInfoGeneral.budget) * Number(newInfoGeneral.advance)) /
-              100
-        )
-          isAcepted = true;
-        newInfoGeneral.isAcepted = isAcepted;
-        newInfoGeneral.isValid = true;
-        newInfoGeneral.kResidualGeneral = Math.round(kResidualGeneral);
-
-        setProponentes(newProponentes);
-        setInfoGeneral(newInfoGeneral);
-      } else {
+      const { valid, message } = validatePercentageParticipation();
+      if (!valid) throw new Error(message);
+      if (!infoGeneral.budget)
         throw new Error("Ingrese la información general");
-      }
+      let kResidualGeneral = 0;
+      let isAcepted = false;
+      const newProponentes = [...proponentes];
+      const newInfoGeneral = { ...infoGeneral };
+
+      newProponentes.map((proponente) => {
+        const sce = calculateSCE(proponente, infoGeneral);
+        proponente.sce = sce;
+        proponente.kResidual = 0;
+        proponente.kResidual = calculateKResidual(proponente, infoGeneral);
+        kResidualGeneral += proponente.kResidual;
+      });
+
+      if (
+        kResidualGeneral >
+        Number(newInfoGeneral.budget) -
+          (Number(newInfoGeneral.budget) * Number(newInfoGeneral.advance)) / 100
+      )
+        isAcepted = true;
+      newInfoGeneral.isAcepted = isAcepted;
+      newInfoGeneral.isValid = true;
+      newInfoGeneral.kResidualGeneral = Math.round(kResidualGeneral);
+
+      setProponentes(newProponentes);
+      setInfoGeneral(newInfoGeneral);
     } catch (error) {
       setError(error.message);
     }
@@ -82,9 +84,9 @@ const ContratoPage = () => {
             Información de los contratos en curso
           </h2>
           <a
-            href="../../archivo.xlsx"
+            href="/archivo.xlsx"
             target="_blank"
-            // rel="noopener noreferrer"
+            rel="noopener noreferrer"
             download="archivo.xlsx"
             className="contract__header-button button"
           >

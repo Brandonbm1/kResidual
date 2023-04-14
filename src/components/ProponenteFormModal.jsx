@@ -5,8 +5,6 @@ import {
   calculateExperience,
   calculateFinancialCapability,
   calculateTecniqueCapability,
-  calculateSCE,
-  calculateKResidual,
 } from "../hooks/useCalculate";
 
 const arrayOfIndex = [];
@@ -26,6 +24,8 @@ const ProponenteFormModal = () => {
     setProponentes,
     handleOpenModal,
     infoGeneral,
+    setError,
+    setInfoGeneral,
   } = useProponentContext();
 
   const defaultForm = {
@@ -59,26 +59,11 @@ const ProponenteFormModal = () => {
     if (data.haveContracts === "") data.haveContracts = "No";
     if (data.overThanAYear === "") data.overThanAYear = "No";
     if (
-      data.overThanAYear === "No" ||
+      data.overThanAYear.toLowerCase === "no" ||
       data.bestIncome < infoGeneral?.dolarPrice * 125000
     )
       data.bestIncome = infoGeneral?.dolarPrice * 125000;
     const contratos = [];
-    /**
-     for (let i = 0; i < data.numContracts; i++) {
-      const newContract = {
-        index: getRandomNumber(150, 100000),
-        contractPrice: "",
-        startDate: "",
-        term: "",
-        isPlural: "",
-        participation: "",
-        isSuspended: "",
-        suspentionDate: "",
-      };
-      contratos.push(newContract);
-    }
-     */
 
     data.numContracts = 0;
     data.contracts = contratos;
@@ -91,8 +76,7 @@ const ProponenteFormModal = () => {
     data.financialCapabilityValue = calculateFinancialCapability(data);
     data.tecnicCapabilityValue = calculateTecniqueCapability(data);
 
-    // data.sce = calculateSCE(data, infoGeneral);
-    // data.kresidual = calculateKResidual(data);
+    setInfoGeneral({ ...infoGeneral, isValid: false });
 
     setProponentes((prevState) => {
       const listProponents = [...prevState];
