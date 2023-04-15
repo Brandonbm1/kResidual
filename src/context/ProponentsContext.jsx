@@ -17,6 +17,10 @@ export const ProponentContextProvider = ({ children }) => {
     setOpenModal(boolean);
   };
   const validatePercentageParticipation = () => {
+    const result = {
+      valid: true,
+      message: "Ok",
+    };
     if (proponentes.length == 0) {
       return { valid: false, message: "No hay proponentes" };
     }
@@ -24,13 +28,13 @@ export const ProponentContextProvider = ({ children }) => {
     proponentes.map((proponente) => {
       totalPercentage += Number(proponente.participation);
     });
-    if (totalPercentage !== 100)
-      return {
-        valid: false,
-        message:
-          "Error al digitar el porcentaje de participación de los proponentes",
-      };
-    return { valid: true, message: "Ok" };
+    if (totalPercentage != 100) {
+      result.valid = false;
+      result.message =
+        "Error al digitar el porcentaje de participación de los proponentes";
+    }
+    console.log(result);
+    return result;
   };
 
   const value = {

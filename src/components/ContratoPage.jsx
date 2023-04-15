@@ -2,7 +2,6 @@ import { useProponentContext } from "../context/ProponentsContext";
 import { calculateKResidual, calculateSCE } from "../hooks/useCalculate";
 import ContratoFormModal from "./ContratoFormModal";
 import ContratoTable from "./ContratoTable";
-import { useState } from "react";
 import ErrorModal from "./ErrorModal";
 import { useEffect } from "react";
 
@@ -39,6 +38,7 @@ const ContratoPage = () => {
         throw new Error("Ingrese la información general");
       let kResidualGeneral = 0;
       let isAcepted = false;
+
       const newProponentes = [...proponentes];
       const newInfoGeneral = { ...infoGeneral };
 
@@ -75,7 +75,6 @@ const ContratoPage = () => {
       object,
     });
   };
-
   return (
     <section className="contract" id="contract">
       <div className="container">
@@ -89,6 +88,7 @@ const ContratoPage = () => {
             rel="noopener noreferrer"
             download="archivo.xlsx"
             className="contract__header-button button"
+            type="application/vnd.ms-excel.sheet.macroEnabled.12; length=177821"
           >
             Descarga excel base
           </a>

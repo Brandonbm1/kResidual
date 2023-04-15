@@ -103,7 +103,6 @@ export const calculateSCE = (proponente, infoGeneral) => {
 };
 
 export const calculateKResidual = (proponente, infoGeneral) => {
-  console.log(proponente);
   const {
     bestIncome,
     experienceValue,

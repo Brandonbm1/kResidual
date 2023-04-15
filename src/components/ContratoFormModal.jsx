@@ -297,6 +297,12 @@ const ContratoFormModal = () => {
           0,
           participation.length - 1
         );
+        // console.log({
+        //   participation,
+        //   contractPrice,
+        //   contractPriceFormat,
+        //   participationFormat,
+        // });
         const newStartDate = formatDate(startDate);
         const newSuspentionDate = formatDate(suspentionDate);
         const newContract = {
@@ -312,6 +318,7 @@ const ContratoFormModal = () => {
           suspentionDate: newSuspentionDate,
           suspentionDateFormat: suspentionDate,
         };
+        console.log(newContract);
 
         contratos.push(newContract);
       });
