@@ -17,6 +17,7 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -30,8 +31,16 @@ export const AuthContextProvider = ({ children }) => {
     createUserWithEmailAndPassword(auth, email, password);
   const signIn = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
-  const resetPassword = (email) => {
-    sendPasswordResetEmail(auth, email);
+  const resetPassword = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setError(
+        "Se te ha enviado un correo para que puedas reiniciar tu contraseña"
+      );
+    } catch (error) {
+      if (error.code === "auth/user-not-found")
+        setError("Usuario no encontrado");
+    }
   };
 
   const logOut = () => signOut(auth);
@@ -43,6 +52,8 @@ export const AuthContextProvider = ({ children }) => {
     signIn,
     logOut,
     resetPassword,
+    error,
+    setError,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

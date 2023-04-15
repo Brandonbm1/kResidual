@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 const Login = () => {
-  const [error, setError] = useState();
-  const { signIn, resetPassword } = useAuthContext();
+  const { signIn, resetPassword, error, setError } = useAuthContext();
   const { register, handleSubmit, getValues } = useForm();
   const navigate = useNavigate();
 
@@ -30,9 +29,6 @@ const Login = () => {
     if (!email) return setError("Ingrese un correo");
     try {
       await resetPassword(email);
-      setError(
-        "Se te ha enviado un correo para que puedas reiniciar tu contraseña"
-      );
     } catch (error) {
       setError(error.message);
     }
